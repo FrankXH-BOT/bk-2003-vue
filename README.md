@@ -1,5 +1,7 @@
 # xh-movie
 
+> 这个项目是仿卖座网的一个网站
+
 ## Project setup
 ```
 npm install
