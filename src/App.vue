@@ -5,13 +5,13 @@
 </template>
 
 <script>
-  import uri from "@/config/uri";
+  // import uri from "@/config/uri";
   export default {
-    created() {
-      this.$http.get(uri.getNowPlaying).then((ret) => {
-        console.log(ret);
-      });
-    },
+    // created() {
+    //   this.$http.get(uri.getNowPlaying).then((ret) => {
+    //     console.log(ret);
+    //   });
+    // },
   };
 </script>
 
