@@ -1,18 +1,20 @@
 <template>
   <div id="app">
     <router-view> </router-view>
+    <Footer />
   </div>
 </template>
 
 <script>
-  // import uri from "@/config/uri";
+  import uri from "@/config/uri";
+  import Footer from "@/components/Navigation/Footer"
   export default {
-    // created() {
-    //   this.$http.get(uri.getNowPlaying).then((ret) => {
-    //     console.log(ret);
-    //   });
-    // },
+    components: {
+      Footer,
+    }
   };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+
+</style>
