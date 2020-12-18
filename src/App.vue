@@ -1,9 +1,18 @@
 <template>
   <div id="app">
-    <router-view></router-view>
+    <router-view> </router-view>
   </div>
 </template>
 
-<style lang="scss">
+<script>
+  import uri from "@/config/uri";
+  export default {
+    created() {
+      this.$http.get(uri.getNowPlaying).then((ret) => {
+        console.log(ret);
+      });
+    },
+  };
+</script>
 
-</style>
+<style lang="scss"></style>
