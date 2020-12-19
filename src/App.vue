@@ -6,7 +6,6 @@
 </template>
 
 <script>
-  import uri from "@/config/uri";
   import Footer from "@/components/Navigation/Footer"
   export default {
     components: {

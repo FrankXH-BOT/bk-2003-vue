@@ -1,6 +1,6 @@
 <template>
   <div>
-    <van-tabbar v-model="active" @change="changeRouter">
+    <van-tabbar v-model="active" @change="changeRouter" placeholder>
       <van-tabbar-item>
         <van-icon class="iconfont icon-dianying" size="1.2rem" slot="icon" />
         <span>电影</span>
