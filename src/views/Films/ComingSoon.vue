@@ -1,30 +1,37 @@
 <template>
-  <div id="container">
-    <van-loading size="24px" type="spinner" vertical v-show="isLoading"
-      >加载中...</van-loading
-    >
-    <van-card v-for="item in list" :key="item.filmId">
-      <template #title>
-        <span style="fontSize:16px;color: #191a1b;">
-          {{ item.name }}
-          <span class="item">{{ item.filmType.name }}</span>
-        </span>
-      </template>
-      <template #desc>
-        <div>
-          <div style="fontSize:14px;height:19px;"></div>
-          <div style="fontSize:14px;color: #797d82;">
-            主演: <span>{{ item.actors | actor }}</span>
+  <div id="container" class="wrapper">
+    <div>
+      <van-loading size="24px" type="spinner" vertical v-show="isLoading"
+        >加载中...</van-loading
+      >
+      <van-card
+        v-for="item in list"
+        :key="item.filmId"
+        @click="gotoDetail(item.filmId)"
+      >
+        <template #title>
+          <span style="fontSize:16px;color: #191a1b;">
+            {{ item.name }}
+            <span class="item">{{ item.filmType.name }}</span>
+          </span>
+        </template>
+        <template #desc>
+          <div>
+            <div style="fontSize:14px;height:19px;"></div>
+            <div style="fontSize:14px;color: #797d82;">
+              主演: <span>{{ item.actors | actor }}</span>
+            </div>
+            <div class="nowPlayingFilm-buy" style="float: right;">预约</div>
+            <div style="fontSize:14px;color: #797d82;">
+              上映日期：{{ item.premiereAt | toDate }}
+            </div>
           </div>
-          <div style="fontSize:14px;color: #797d82;">
-            上映日期：{{ item.premiereAt | toDate }}
-          </div>
-        </div>
-      </template>
-      <template #thumb>
-        <img :src="item.poster" style="width:66px;height:90px" />
-      </template>
-    </van-card>
+        </template>
+        <template #thumb>
+          <img :src="item.poster" style="width:66px;height:90px" />
+        </template>
+      </van-card>
+    </div>
   </div>
 </template>
 
@@ -38,15 +45,45 @@
   export default {
     data: function() {
       return {
-        list: {},
+        list: [],
         pageNum: 1,
         isLoading: true,
+        ret: {
+          data: {
+            total:1,
+          }
+        },
       };
     },
-    async created() {
-      let ret = await this.$http.get(uri.getComingSoon);
-      this.list = ret.data.films;
-      this.isLoading = false;
+    created() {
+      this.getData();
+    },
+    mounted() {
+      window.addEventListener("scroll", () => {
+        let height = document.documentElement.scrollTop;
+        let clientHeight = document.documentElement.clientHeight;
+        let x = document.documentElement.scrollHeight;
+        if (x === height + clientHeight) {
+          this.getData();
+        }
+      });
+    },
+    methods: {
+      getData() {
+        if (this.pageNum <= Math.ceil(this.ret.data.total / 10)) {
+          this.$http
+            .get(uri.getNowPlaying + `?pageNum=${this.pageNum}`)
+            .then((ret) => {
+              this.ret = ret;
+              this.pageNum++;
+              this.list = this.list.concat(ret.data.films);
+              this.isLoading = false;
+            });
+        }
+      },
+      gotoDetail(id) {
+        this.$router.push(`/film/${id}`);
+      },
     },
     filters: {
       actor: function(val) {
@@ -86,7 +123,7 @@
             day = "日";
             break;
         }
-        let str = `周${day} ${month}月${date}日`
+        let str = `周${day} ${month}月${date}日`;
         return str;
       },
     },
@@ -102,5 +139,18 @@
     line-height: 14px;
     padding: 0 2px;
     border-radius: 2px;
+  }
+  .nowPlayingFilm-buy {
+    line-height: 25px;
+    height: 25px;
+    width: 50px;
+    color: #ff5f16;
+    font-size: 13px;
+    text-align: center;
+    border-radius: 2px;
+    position: relative;
+    border: 1px solid;
+    bottom: 5px;
+    right: 5px;
   }
 </style>

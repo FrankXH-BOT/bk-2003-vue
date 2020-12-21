@@ -9,7 +9,7 @@ import CinemasRouter from "./routes/cinemas";
 
 const routes = [
   CenterRouter,
-  FilmsRouter,
+  ...FilmsRouter,
   CinemasRouter,
   { path: '/', redirect: '/films' },
 ]

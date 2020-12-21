@@ -87,9 +87,9 @@
               this.pageNum++;
               this.list = ret.data.films.concat(this.list);
               this.isLoading = false;
-              this.text = '刷新成功';
-            }else {
-              this.text = '没有更多资源';
+              this.text = "刷新成功";
+            } else {
+              this.text = "没有更多资源";
               this.isLoading2 = false;
             }
           });
@@ -103,10 +103,10 @@
       },
     },
     watch: {
-      list:function() {
+      list: function() {
         this.isLoading2 = false;
-      }
-    }
+      },
+    },
   };
 </script>
 
