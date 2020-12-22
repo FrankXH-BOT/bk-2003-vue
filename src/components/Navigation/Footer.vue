@@ -36,7 +36,6 @@
       let arr = this.$route.path.split('/');
       let path = '/' + arr[1];
       this.active = this.uri.indexOf(path);
-      // this.active = this.$route.path === '/films/nowplaying' || '/films/comingsoon' ? 0 : this.uri.indexOf(this.$route.path);
     },
     methods: {
       changeRouter: function(index) {

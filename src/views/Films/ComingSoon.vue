@@ -48,14 +48,11 @@
         list: [],
         pageNum: 1,
         isLoading: true,
-        ret: {
-          data: {
-            total:1,
-          }
-        },
+        cityId: "",
       };
     },
     created() {
+      this.cityId = this.$store.state.city.cityId;
       this.getData();
     },
     mounted() {
@@ -70,16 +67,17 @@
     },
     methods: {
       getData() {
-        if (this.pageNum <= Math.ceil(this.ret.data.total / 10)) {
-          this.$http
-            .get(uri.getNowPlaying + `?pageNum=${this.pageNum}`)
-            .then((ret) => {
-              this.ret = ret;
+        this.$http
+          .get(
+            uri.getComingSoon + `?pageNum=${this.pageNum}cityId=${this.cityId}`
+          )
+          .then((ret) => {
+            if (this.pageNum <= Math.ceil(ret.data.total / 10)) {
               this.pageNum++;
               this.list = this.list.concat(ret.data.films);
               this.isLoading = false;
-            });
-        }
+            }
+          });
       },
       gotoDetail(id) {
         this.$router.push(`/film/${id}`);

@@ -60,9 +60,11 @@
         isLoading: true,
         isLoading2: true,
         text: "刷新成功",
+        cityId:'',
       };
     },
     created() {
+      this.cityId = this.$store.state.city.cityId;
       this.getData();
     },
     filters: {
@@ -81,7 +83,7 @@
     methods: {
       getData() {
         this.$http
-          .get(uri.getNowPlaying + `?pageNum=${this.pageNum}`)
+          .get(uri.getNowPlaying + `?pageNum=${this.pageNum}&cityId=${this.cityId}`)
           .then((ret) => {
             if (this.pageNum <= Math.ceil(ret.data.total / 10)) {
               this.pageNum++;

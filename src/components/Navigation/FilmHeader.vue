@@ -1,7 +1,10 @@
 <template>
-  <div style="height:44px">
+  <div style="height:84px">
     <div :class="{ show: isShow }">
-      <van-tabs v-model="active" @change="changeRouter">
+      <div class="show1">
+        <button @click="gotoCity">{{ showCity }}</button>
+      </div>
+      <van-tabs v-model="$store.state.active" @change="changeRouter">
         <van-tab title="正在热映"></van-tab>
         <van-tab title="即将上映"></van-tab>
       </van-tabs>
@@ -10,6 +13,7 @@
 </template>
 
 <script>
+  import { mapGetters } from "vuex";
   import Vue from "vue";
   import { Tab, Tabs } from "vant";
 
@@ -18,7 +22,6 @@
   export default {
     data: function() {
       return {
-        active: 0,
         uri: ["/films/nowplaying", "/films/comingsoon"],
         isShow: true,
       };
@@ -27,9 +30,15 @@
       changeRouter: function(name, title) {
         this.$router.push(this.uri[name]);
       },
+      gotoCity: function() {
+        this.$router.push("/city");
+      },
+    },
+    computed: {
+      ...mapGetters(["showCity"]),
     },
     created() {
-      this.active = this.uri.indexOf(this.$route.path);
+      this.$store.commit("setActive", this.uri.indexOf(this.$route.path));
     },
     mounted() {
       window.addEventListener("scroll", () => {
@@ -50,5 +59,24 @@
     width: 100%;
     top: 0;
     z-index: 999;
+  }
+  .show1 {
+    display: block !important;
+    height: 40px;
+    overflow: hidden;
+    width: 100%;
+    background-color: #f8f8f8;
+    button {
+      border: 1px solid #f9f9f9;
+      margin-left: 20px;
+      margin-top: 8px;
+      border-radius: 2px;
+    }
+  }
+  .heigh1 {
+    height: 44px;
+  }
+  .heigh2 {
+    height: 84px;
   }
 </style>

@@ -4,7 +4,6 @@
     <Footer v-show="isShow" />
   </div>
 </template>
-
 <script>
   import Footer from "@/components/Navigation/Footer";
   import { mapGetters } from "vuex";
@@ -22,7 +21,8 @@
     // },
     updated() {
       this.isShow = this.$store.state.isShowFooter;
-      console.log(this.isShow);
+      let x = this.$route.path === '/films/nowplaying' ? 0 : 1;
+      this.$store.commit('setActive',x);
     },
     mounted() {
       this.isShow = this.$store.state.isShowFooter;

@@ -6,11 +6,13 @@ Vue.use(VueRouter)
 import CenterRouter from "./routes/center";
 import FilmsRouter from "./routes/films";
 import CinemasRouter from "./routes/cinemas";
+import CityRouter from "./routes/city";
 
 const routes = [
   CenterRouter,
   ...FilmsRouter,
   CinemasRouter,
+  CityRouter,
   { path: '/', redirect: '/films' },
 ]
 
