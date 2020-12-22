@@ -1,6 +1,17 @@
 <template>
-    <div>
-        电影模板
-        <router-view></router-view>
-    </div>
+  <div>
+    <FilmHeader />
+    <router-view></router-view>
+  </div>
 </template>
+
+<script>
+  import FilmHeader from "@/components/Navigation/FilmHeader";
+  export default {
+    components: {
+      FilmHeader,
+    },
+  };
+</script>
+
+<style lang="scss" scoped></style>
