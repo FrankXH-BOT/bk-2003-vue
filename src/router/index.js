@@ -9,7 +9,7 @@ import CinemasRouter from "./routes/cinemas";
 import CityRouter from "./routes/city";
 
 const routes = [
-  CenterRouter,
+  ...CenterRouter,
   ...FilmsRouter,
   CinemasRouter,
   CityRouter,
